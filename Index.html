@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hari Spesial Nida! 🎉</title>
+    <style>
+        /* Pengaturan Dasar & Background */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #ffebee, #ffcdd2, #f8bbd0, #e1bee7);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            flex-direction: column;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Kartu Utama */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            z-index: 10;
+            position: relative;
+            margin: 40px 0;
+            animation: popIn 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Gaya Teks */
+        h1 {
+            color: #d81b60;
+            font-size: 2.3em;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #8e24aa;
+            font-size: 1.1em;
+            font-weight: 400;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .content-text {
+            font-size: 1.1em;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 20px;
+            text-align: left;
+            padding: 0 15px;
+        }
+
+        .highlight {
+            color: #e91e63;
+            font-weight: bold;
+        }
+
+        /* Frame Foto */
+        .photo-frame {
+            position: relative;
+            margin: 0 auto 30px auto;
+            max-width: 300px;
+            border: 8px solid #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transform: rotate(3deg);
+            transition: transform 0.3s;
+        }
+
+        .photo-frame:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+        }
+
+        .pin {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: #ff5252;
+            border-radius: 50%;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.3), inset 0 -3px 5px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        /* Area Tombol Interaktif */
+        .interactive-area {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px dashed #f8bbd0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            width: 80%;
+            max-width: 300px;
+        }
+
+        .btn-info { background: linear-gradient(135deg, #29b6f6, #0288d1); color: white; }
+        .btn-alert { background: linear-gradient(135deg, #ab47bc, #7b1fa2); color: white; }
+        .btn-main { background: linear-gradient(135deg, #ff4081, #c51162); color: white; font-size: 1.1em; padding: 15px 25px; }
+        
+        button:hover { transform: translateY(-3px); }
+
+        /* Tombol Kabur (Jail) */
+        .btn-kabur {
+            background: linear-gradient(135deg, #ffca28, #f57c00);
+            color: #fff;
+            position: relative;
+        }
+
+        /* Kotak Pesan Tersembunyi */
+        .hidden-message {
+            display: none;
+            margin-top: 10px;
+            padding: 15px;
+            background: #e3f2fd;
+            border-radius: 15px;
+            border-left: 5px solid #0288d1;
+            font-size: 0.95em;
+            color: #01579b;
+            width: 80%;
+            max-width: 300px;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        #kado-msg {
+            background: transparent;
+            border: none;
+            font-size: 1.8em;
+            color: #d81b60;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hiasan Hati Melayang (Dibuat via JS) */
+        .floating-heart {
+            position: absolute;
+            color: #ff4081;
+            font-size: 20px;
+            animation: floatUp 8s linear infinite;
+            z-index: 1;
+            opacity: 0.6;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0.8; }
+            100% { transform: translateY(-20vh) scale(1.2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>Selamat Ulang tahun, Nida Sayang! 🎂</h1>
+        <h2>Manusia Kesukaanku yang cakep (lah kata siapa? kata gueh...) 💖</h2>
+
+        <div class="photo-frame">
+            <div class="pin"></div>
+            <!-- INI BAGIAN FOTONYA. Pastikan nama file fotonya foto-nida.jpg -->
+            <img src="foto-nida.jpg" alt="Foto Nida Cantik">
+        </div>
+
+        <div class="content-text">
+            <p>Haii <span class="highlight">Nida sayang</span>,</p>
+            <p>Coba deh liat foto di atas. Dari gaya kalem, senyum manis, yg melet-melet gitu, sampe senyuman yg seperti terpaksa itu... anehnya kok aku tetep sayang ya? Kayaknya pelet kamu kuat banget deh ini. 🤣 Eh beneran, kamu pake pelet kah?😅 Tapi serius, makasih ya udah jadi Nida yang penuh kejutan dan selalu bikin hari-hariku lebih berwarna.😍</p>
+           
+            <p><strong>My Wishes for You :</strong></p>
+            <p>Semoga kamu panjang umur, sehat selalu, dan rezekinya ngalir deras (biar kita bisa jalan-jalan kemana saja dan biar bisa jajanin aku, wkwk canda sayang ✌️).Semoga setiap langkahmu ke depannya selalu diiringi dengan keberuntungan, kesehatan, dan Hal-hal baik lainnya. Teruslah bersinar, kejar semua mimpimu, dan jadilah inspirasi bagi orang-orang di sekitarmu. Semoga kamu makin sabar ngadepin pacarmu yang kadang random ini, makin dewasa, dan yang paling penting... semoga kamu selalu bahagia yaa UwU</p>
+            <p>Apapun mimpi dan tujuan kamu ke depannya, aku bakal selalu di barisan paling depan buat dukung kamu. Harapan terbaik untukmu di hari yang sangat spesial ini *I love you, have a Wonderful Day!* ❤️</p>
+        </div>
+
+        <!-- AREA TOMBOL INTERAKTIF -->
+        <div class="interactive-area">
+            <h3>Coba aja Pencet Tombol-Tombol Ini Babe😁:</h3>
+            
+            <!-- Tombol 1: Memunculkan Teks Rahasia -->
+            <button class="btn-info" onclick="bukaRahasia()">1. Ada Rahasia Kecil...</button>
+            <div id="pesan-rahasia" class="hidden-message">Sebenernya, tiap kali kamu ngambek, dalem hati aku selalu bilang "ih lucu banget sih pacar gue". Wkwkwkwk ampun bos! 🏃‍♂️💨</div>
+
+            <!-- Tombol 2: Memunculkan Pop-up Alert -->
+            <button class="btn-alert" onclick="cekKecantikan()">2. Cek Level Kecantikan Nida Hari Ini</button>
+
+            <!-- Tombol 3: Tombol Jail yang Kabur -->
+            <button class="btn-kabur" id="tombol-kabur" onmouseover="kaburMulu()" onclick="kenaDeh()">3. Pencet Ini Kalau Udah Bosen Sama Aku</button>
+
+            <!-- Tombol 4: Kado Utama (Confetti) -->
+            <button class="btn-main" onclick="bukaKado()">4. BUKA KADO UTAMA! 🎁</button>
+            <div id="kado-msg" class="hidden-message">HAPPY BIRTHDAY SAYANGKU! MUAAAH! 🥰❤️❤️</div>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi Tombol 1: Buka Teks Rahasia
+        function bukaRahasia() {
+            const msg = document.getElementById('pesan-rahasia');
+            msg.style.display = msg.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Fungsi Tombol 2: Pop-up Alert beruntun
+        function cekKecantikan() {
+            alert("Sedang memindai wajah di foto...");
+            setTimeout(() => {
+                alert("Memproses data kecantikan...");
+                setTimeout(() => {
+                    alert("ERROR 404: Sensor meledak! Nida terlalu cantik hari ini! 🤯💖");
+                }, 1000);
+            }, 1000);
+        }
+
+        // Fungsi Tombol 3: Tombol Kabur saat di-hover
+        function kaburMulu() {
+            const btn = document.getElementById('tombol-kabur');
+            const x = Math.floor(Math.random() * 150) - 75; // Gerak acak X
+            const y = Math.floor(Math.random() * 100) - 50;  // Gerak acak Y
+            btn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+        function kenaDeh() {
+            alert("Yeee Susah yaa buat dipencet? Lagian ngapain sih pengen pencet tombolnya, apa kamu udah bosen kah sama aku😫");
+            document.getElementById('tombol-kabur').style.transform = "translate(0,0)";
+        }
+
+        // Fungsi Tombol 4: Buka Kado (Confetti + Pesan Besar)
+        function bukaKado() {
+            const msg = document.getElementById('kado-msg');
+            msg.style.display = 'block';
+            buatConfetti();
+            buatConfetti(); 
+            buatConfetti(); // 3x biar rame banget
+        }
+
+        // Fungsi membuat animasi hati terbang di background
+        function buatHatiTerbang() {
+            const symbols = ['❤', '💖', '✨', '🌸', '😘'];
+            for (let i = 0; i < 40; i++) {
+                let heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                document.body.appendChild(heart);
+            }
+        }
+        buatHatiTerbang();
+
+        // Fungsi Confetti (Hujan Kertas Warna Warni)
+        function buatConfetti() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            canvas.style.position = 'fixed';
+            canvas.style.top = 0;
+            canvas.style.left = 0;
+            canvas.style.pointerEvents = 'none';
+            canvas.style.zIndex = 9999;
+            document.body.appendChild(canvas);
+
+            let particles = [];
+            let colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4CAF50', '#FFEB3B', '#FF9800'];
+
+            for (let i = 0; i < 200; i++) {
+                particles.push({
+                    x: window.innerWidth / 2, 
+                    y: window.innerHeight / 2,
+                    r: Math.random() * 6 + 4,
+                    dx: Math.random() * 20 - 10,
+                    dy: Math.random() * -20 - 5,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    tilt: Math.floor(Math.random() * 10) - 10,
+                    tiltAngleInc: (Math.random() * 0.07) + 0.05,
+                    tiltAngle: 0
+                });
+            }
+
+            function animateConfetti() {
+                requestAnimationFrame(animateConfetti);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                particles.forEach((p, index) => {
+                    p.tiltAngle += p.tiltAngleInc;
+                    p.y += (Math.cos(p.tiltAngle) + 1 + p.r / 2) / 2;
+                    p.x += Math.sin(p.tiltAngle) * 2;
+                    p.dy += 0.5; 
+                    p.x += p.dx;
+                    p.y += p.dy;
+
+                    ctx.beginPath();
+                    ctx.lineWidth = p.r;
+                    ctx.strokeStyle = p.color;
+                    ctx.moveTo(p.x + p.tilt + p.r, p.y);
+                    ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r);
+                    ctx.stroke();
+
+                    if (p.y > canvas.height) {
+                        particles.splice(index, 1);
+                    }
+                });
+
+                if (particles.length === 0) {
+                    canvas.remove();
+                }
+            }
+            animateConfetti();
+        }
+    </script>
+</body>
+</html>
